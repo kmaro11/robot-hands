@@ -8,6 +8,9 @@ import { AboutUs } from '../../blocks/AboutUsHero/config'
 import { Services } from '../../blocks/ServicesBlock/config'
 import { Team } from '../../blocks/TeamBlock/config'
 import { Text } from '../../blocks/TextBlock/config'
+import { Form } from '../../blocks/Form/config'
+import { TextEditor } from '../../blocks/TextEditor/config'
+import { Contact } from '../../blocks/ContactsBlock/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
@@ -71,7 +74,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [MediaBlock, AboutUs, Services, Team, Text],
+              blocks: [MediaBlock, AboutUs, Services, Team, Text, Form, TextEditor, Contact],
               required: true,
               admin: {
                 initCollapsed: true,

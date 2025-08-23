@@ -7,6 +7,9 @@ import { AboutUsHero } from '@/blocks/AboutUsHero/Component'
 import { ServicesBlock } from '@/blocks/ServicesBlock/Component'
 import { TeamBlock } from '@/blocks/TeamBlock/Component'
 import { TextBlock } from '@/blocks/TextBlock/Component'
+import { FormBlock } from '@/blocks/Form/Component'
+import { TextEditor as TextEditorBlockComponent } from '@/blocks/TextEditor/Component'
+import { ContactsBlock } from '@/blocks/ContactsBlock/Component'
 
 const blockComponents = {
   mediaBlock: MediaBlock,
@@ -14,6 +17,9 @@ const blockComponents = {
   services: ServicesBlock,
   team: TeamBlock,
   text: TextBlock,
+  form: FormBlock,
+  textEditor: TextEditorBlockComponent,
+  contact: ContactsBlock,
 } as const
 
 export const RenderBlocks: React.FC<{

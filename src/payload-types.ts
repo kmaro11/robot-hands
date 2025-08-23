@@ -138,7 +138,16 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   title: string;
-  layout: (MediaBlock | AboutUsBlock | ServicesBlock | TeamBlock | TextBlock)[];
+  layout: (
+    | MediaBlock
+    | AboutUsBlock
+    | ServicesBlock
+    | TeamBlock
+    | TextBlock
+    | FormBlock
+    | TextEditorBlock
+    | ContactBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -322,6 +331,56 @@ export interface TextBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock".
+ */
+export interface FormBlock {
+  title: string;
+  subtitle: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'form';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextEditorBlock".
+ */
+export interface TextEditorBlock {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textEditor';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactBlock".
+ */
+export interface ContactBlock {
+  title: string;
+  phone: string;
+  email: string;
+  addressTitle: string;
+  address: string;
+  media: number | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contact';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -544,6 +603,9 @@ export interface PagesSelect<T extends boolean = true> {
         services?: T | ServicesBlockSelect<T>;
         team?: T | TeamBlockSelect<T>;
         text?: T | TextBlockSelect<T>;
+        form?: T | FormBlockSelect<T>;
+        textEditor?: T | TextEditorBlockSelect<T>;
+        contact?: T | ContactBlockSelect<T>;
       };
   meta?:
     | T
@@ -630,6 +692,39 @@ export interface TextBlockSelect<T extends boolean = true> {
         url?: T;
         newTab?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock_select".
+ */
+export interface FormBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextEditorBlock_select".
+ */
+export interface TextEditorBlockSelect<T extends boolean = true> {
+  content?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactBlock_select".
+ */
+export interface ContactBlockSelect<T extends boolean = true> {
+  title?: T;
+  phone?: T;
+  email?: T;
+  addressTitle?: T;
+  address?: T;
+  media?: T;
   id?: T;
   blockName?: T;
 }

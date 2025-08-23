@@ -22,6 +22,7 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.1",
     "@neondatabase/serverless": "^1.0.1",
     "@payloadcms/admin-bar": "3.52.0",
     "@payloadcms/db-postgres": "3.52.0",
@@ -54,7 +55,8 @@
     "react-hook-form": "7.45.4",
     "sharp": "0.34.2",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^4.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
