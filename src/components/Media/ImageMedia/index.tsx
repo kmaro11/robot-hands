@@ -31,14 +31,32 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   let src: StaticImageData | string = srcFromProps || ''
 
   if (!src && resource && typeof resource === 'object') {
-    const { alt: altFromResource, height: fullHeight, url, width: fullWidth } = resource
+    const {
+      alt: altFromResource,
+      height: fullHeight,
+      url,
+      width: fullWidth,
+      filename,
+    } = resource as any
 
     width = fullWidth!
     height = fullHeight!
     alt = altFromResource || ''
 
     const cacheTag = resource.updatedAt
-    src = getMediaUrl(url, cacheTag)
+
+    // Always prefer Blob host when configured (ensures prod URLs locally and in prod)
+    const blobHost = process.env.NEXT_PUBLIC_BLOB_PUBLIC_HOST
+    if (blobHost && filename) {
+      const normalized =
+        blobHost.startsWith('http://') || blobHost.startsWith('https://')
+          ? blobHost
+          : `https://${blobHost}`
+      const base = normalized.replace(/\/$/, '')
+      src = cacheTag ? `${base}/${filename}?${cacheTag}` : `${base}/${filename}`
+    } else {
+      src = getMediaUrl(url, cacheTag)
+    }
   }
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
