@@ -2,13 +2,11 @@ import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
 
-import { ContentBlock } from '@/blocks/Content/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 
 const blockComponents = {
-  content: ContentBlock,
   mediaBlock: MediaBlock,
-}
+} as const
 
 export const RenderBlocks: React.FC<{
   blocks: Page['layout'][0][]
@@ -22,15 +20,15 @@ export const RenderBlocks: React.FC<{
       <Fragment>
         {blocks.map((block, index) => {
           const { blockType } = block
+          const type = blockType as keyof typeof blockComponents
 
-          if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType]
+          if (type && type in blockComponents) {
+            const Block = blockComponents[type]
 
             if (Block) {
               return (
                 <div className="my-16" key={index}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                  <Block {...block} disableInnerContainer />
+                  <Block {...(block as any)} disableInnerContainer />
                 </div>
               )
             }
