@@ -62,6 +62,17 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
             },
             label: 'Open in new tab',
           },
+          {
+            name: 'button',
+            type: 'checkbox',
+            admin: {
+              style: {
+                alignSelf: 'flex-end',
+              },
+              width: '50%',
+            },
+            label: 'Green button',
+          },
         ],
       },
     ],

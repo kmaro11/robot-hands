@@ -698,11 +698,13 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  media?: (number | null) | Media;
   navItems?:
     | {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
+          button?: boolean | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -727,6 +729,7 @@ export interface Footer {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
+          button?: boolean | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -745,6 +748,7 @@ export interface Footer {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  media?: T;
   navItems?:
     | T
     | {
@@ -753,6 +757,7 @@ export interface HeaderSelect<T extends boolean = true> {
           | {
               type?: T;
               newTab?: T;
+              button?: T;
               reference?: T;
               url?: T;
               label?: T;
@@ -776,6 +781,7 @@ export interface FooterSelect<T extends boolean = true> {
           | {
               type?: T;
               newTab?: T;
+              button?: T;
               reference?: T;
               url?: T;
               label?: T;
