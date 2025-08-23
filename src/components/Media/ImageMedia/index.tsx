@@ -45,18 +45,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
     const cacheTag = resource.updatedAt
 
-    // Always prefer Blob host when configured (ensures prod URLs locally and in prod)
-    const blobHost = process.env.NEXT_PUBLIC_BLOB_PUBLIC_HOST
-    if (blobHost && filename) {
-      const normalized =
-        blobHost.startsWith('http://') || blobHost.startsWith('https://')
-          ? blobHost
-          : `https://${blobHost}`
-      const base = normalized.replace(/\/$/, '')
-      src = cacheTag ? `${base}/${filename}?${cacheTag}` : `${base}/${filename}`
-    } else {
-      src = getMediaUrl(url, cacheTag)
-    }
+    src = getMediaUrl(url, cacheTag)
   }
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)

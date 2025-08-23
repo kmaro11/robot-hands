@@ -6,8 +6,6 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : undefined || process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
 
-const NEXT_PUBLIC_MEDIA_BASE_URL = process.env.NEXT_PUBLIC_MEDIA_BASE_URL
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -20,20 +18,6 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
-      ...(NEXT_PUBLIC_MEDIA_BASE_URL
-        ? [
-            (() => {
-              const raw = NEXT_PUBLIC_MEDIA_BASE_URL
-              const normalized =
-                raw.startsWith('http://') || raw.startsWith('https://') ? raw : `https://${raw}`
-              const url = new URL(normalized)
-              return {
-                hostname: url.hostname,
-                protocol: url.protocol.replace(':', ''),
-              }
-            })(),
-          ]
-        : []),
       {
         protocol: 'https',
         hostname: '*.blob.vercel-storage.com',

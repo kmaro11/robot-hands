@@ -1,4 +1,4 @@
-import { getClientSideURL } from '@/utilities/getURL'
+// import { getClientSideURL } from '@/utilities/getURL'
 
 /**
  * Processes media resource URL to ensure proper formatting
@@ -9,39 +9,14 @@ import { getClientSideURL } from '@/utilities/getURL'
 export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | null): string => {
   if (!url) return ''
 
-  // Check if URL already has http/https protocol
+  // If URL already absolute, return as-is (honors Blob URLs)
   if (url.startsWith('http://') || url.startsWith('https://')) {
-    const prodMediaBase = process.env.NEXT_PUBLIC_MEDIA_BASE_URL
-    if (prodMediaBase) {
-      const hasProtocol =
-        prodMediaBase.startsWith('http://') || prodMediaBase.startsWith('https://')
-      const base = (hasProtocol ? prodMediaBase : `https://${prodMediaBase}`).replace(/\/$/, '')
-      try {
-        const current = new URL(url)
-        const prod = new URL(base)
-        const isBlob = /\.blob\.vercel-storage\.com$/i.test(current.hostname)
-        const sameHost = current.hostname === prod.hostname
-        if (!isBlob && !sameHost) {
-          const path = current.pathname.startsWith('/') ? current.pathname : `/${current.pathname}`
-          return cacheTag ? `${base}${path}?${cacheTag}` : `${base}${path}`
-        }
-      } catch {
-        // fall through to return the original url
-      }
-    }
     return cacheTag ? `${url}?${cacheTag}` : url
   }
 
-  // Prefer a prod media base if provided (works locally and in prod)
-  const prodMediaBase = process.env.NEXT_PUBLIC_MEDIA_BASE_URL
-  if (prodMediaBase) {
-    const hasProtocol = prodMediaBase.startsWith('http://') || prodMediaBase.startsWith('https://')
-    const base = (hasProtocol ? prodMediaBase : `https://${prodMediaBase}`).replace(/\/$/, '')
-    const path = url.startsWith('/') ? url : `/${url}`
-    return cacheTag ? `${base}${path}?${cacheTag}` : `${base}${path}`
-  }
+  // No public env usage to avoid exposing secrets. Fallback to current origin.
 
-  // Otherwise prepend client-side URL
-  const baseUrl = getClientSideURL()
-  return cacheTag ? `${baseUrl}${url}?${cacheTag}` : `${baseUrl}${url}`
+  // Otherwise, fall back to current origin
+  const origin = typeof window !== 'undefined' ? window.location.origin : ''
+  return cacheTag ? `${origin}${url}?${cacheTag}` : `${origin}${url}`
 }
