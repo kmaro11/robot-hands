@@ -17,6 +17,11 @@ import { authenticated } from '../access/authenticated'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+// Use writable temp dir on Vercel, local folder in dev
+const uploadsDir = process.env.VERCEL
+  ? path.resolve('/tmp/media')
+  : path.resolve(dirname, '../../public/media')
+
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
@@ -43,7 +48,7 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     // Keep local storage to allow Payload to generate sizes via sharp, then mirror to Vercel Blob
-    staticDir: path.resolve(dirname, '../../public/media'),
+    staticDir: uploadsDir,
     adminThumbnail: 'thumbnail',
     focalPoint: true,
     imageSizes: [
@@ -81,14 +86,22 @@ export const Media: CollectionConfig = {
     ],
   },
   hooks: {
+    beforeChange: [
+      async () => {
+        // Ensure upload directory exists when running on Vercel
+        if (process.env.VERCEL) {
+          try {
+            await fs.mkdir(uploadsDir, { recursive: true })
+          } catch {}
+        }
+      },
+    ],
     afterChange: [
       async ({ doc, previousDoc: _prev }) => {
         try {
           // Skip if already points to Vercel Blob
           const url: string | undefined = (doc as MediaDoc)?.url ?? undefined
           if (url && url.includes('vercel-storage.com')) return doc
-
-          const uploadsDir = path.resolve(dirname, '../../public/media')
 
           // Helper to upload a file by filename if it exists on disk
           const uploadFile = async (
