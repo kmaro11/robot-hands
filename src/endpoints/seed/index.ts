@@ -83,7 +83,7 @@ export const seed = async ({
     ),
   ])
 
-  const [demoAuthor, image1Doc, image2Doc, image3Doc, imageHomeDoc] = await Promise.all([
+  const [image2Doc, imageHomeDoc] = await Promise.all([
     payload.create({
       collection: 'users',
       data: {
