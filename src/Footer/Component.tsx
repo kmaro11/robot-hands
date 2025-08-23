@@ -11,6 +11,9 @@ export async function Footer() {
 
   const navItems = footerData?.navItems || []
 
+  const policySlug = footerData?.policy?.[0]?.link?.reference?.value?.slug
+  const policyLabel = footerData?.policy?.[0]?.link?.label
+
   const slug = (item: any) => {
     if (
       item.type === 'reference' &&
@@ -51,12 +54,12 @@ export async function Footer() {
                   )}
                 </>
               ))}
-              {footerData?.policy[0].link.reference.value.slug && (
+              {policySlug && (
                 <Link
-                  href={footerData?.policy[0].link.reference.value.slug}
+                  href={policySlug}
                   className="md:hidden text-white text-15 md:text-20 hover:underline"
                 >
-                  {footerData?.policy[0].link.label}
+                  {policyLabel}
                 </Link>
               )}
             </div>
@@ -64,12 +67,12 @@ export async function Footer() {
           <div className="flex flex-col lg:flex-row justify-between">
             <div className="order-2 lg:order-none mt-20 lg:mt-0 flex items-center gap-x-14">
               <div className="text-white text-15 md:text-20">{footerData?.copyright}</div>
-              {footerData?.policy[0].link.reference.value.slug && (
+              {policySlug && (
                 <Link
-                  href={footerData?.policy[0].link.reference.value.slug}
+                  href={policySlug}
                   className="hidden md:inline text-white text-15 md:text-20 hover:underline"
                 >
-                  {footerData?.policy[0].link.label}
+                  {policyLabel}
                 </Link>
               )}
             </div>
