@@ -3,9 +3,17 @@ import React, { Fragment } from 'react'
 import type { Page } from '@/payload-types'
 
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { AboutUsHero } from '@/blocks/AboutUsHero/Component'
+import { ServicesBlock } from '@/blocks/ServicesBlock/Component'
+import { TeamBlock } from '@/blocks/TeamBlock/Component'
+import { TextBlock } from '@/blocks/TextBlock/Component'
 
 const blockComponents = {
   mediaBlock: MediaBlock,
+  aboutUs: AboutUsHero,
+  services: ServicesBlock,
+  team: TeamBlock,
+  text: TextBlock,
 } as const
 
 export const RenderBlocks: React.FC<{

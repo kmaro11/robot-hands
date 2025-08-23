@@ -4,6 +4,10 @@ import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { AboutUs } from '../../blocks/AboutUsHero/config'
+import { Services } from '../../blocks/ServicesBlock/config'
+import { Team } from '../../blocks/TeamBlock/config'
+import { Text } from '../../blocks/TextBlock/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
@@ -67,7 +71,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [MediaBlock],
+              blocks: [MediaBlock, AboutUs, Services, Team, Text],
               required: true,
               admin: {
                 initCollapsed: true,

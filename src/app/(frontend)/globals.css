@@ -15,3 +15,81 @@
     padding: 0;
   }
 }
+
+@font-face {
+  font-family: 'Px-Grotesk';
+  src: url('/fonts/Px-Grotesk-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Px-Grotesk';
+  src: url('/fonts/Px-Grotesk-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Px-Grotesk', sans-serif;
+  font-weight: 400;
+}
+
+.animation-block {
+  @apply flex flex-col gap-x-[11px];
+}
+
+.animation-container {
+  @apply flex overflow-hidden w-full gap-x-[11px];
+}
+
+.animation-container .animation-wrapper {
+  animation-delay: -3s;
+  @apply flex items-center min-w-full shrink-0 justify-around gap-x-[11px];
+}
+
+.animation-container.animation-container-logos .animation-wrapper img {
+  @apply block w-full max-w-[115px] md:max-w-[180px] min-w-[115px] md:min-w-[180px];
+}
+
+.animation-container.animation-container-images .animation-wrapper img {
+  @apply w-full overflow-hidden rounded-[12px];
+}
+
+.animation-container .animation-wrapper {
+  animation: 100s slides infinite linear;
+}
+
+.animation-container.animation-container-logos .animation-wrapper.animation-reverse {
+  animation-direction: reverse;
+}
+
+@keyframes slides {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.text-editor h1 {
+  @apply text-primary text-30 md:text-40 font-bold mb-11 md:mb-12;
+}
+
+.text-editor p,
+.text-editor a,
+.text-editor div,
+.text-editor li,
+.text-editor ol,
+.text-editor ul {
+  @apply text-primary text-[15px] md:text-[20px] leading-[150%];
+}
+
+.text-editor a {
+  @apply underline;
+}
+
+.text-editor ul {
+  @apply list-disc list-inside pl-2.5;
+}

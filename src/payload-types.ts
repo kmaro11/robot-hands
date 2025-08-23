@@ -138,7 +138,7 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   title: string;
-  layout: MediaBlock[];
+  layout: (MediaBlock | AboutUsBlock | ServicesBlock | TeamBlock | TextBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -255,6 +255,73 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutUsBlock".
+ */
+export interface AboutUsBlock {
+  title: string;
+  subtitle: string;
+  media: number | Media;
+  paragraph: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutUs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesBlock".
+ */
+export interface ServicesBlock {
+  title: string;
+  services?:
+    | {
+        title: string;
+        text: string;
+        link: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'services';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamBlock".
+ */
+export interface TeamBlock {
+  title: string;
+  members?:
+    | {
+        title: string;
+        role: string;
+        media: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'team';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  title: string;
+  subtitle: string;
+  link?: {
+    label?: string | null;
+    linkType?: ('pages' | 'custom') | null;
+    page?: (number | null) | Page;
+    url?: string | null;
+    newTab?: boolean | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'text';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -473,6 +540,10 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         mediaBlock?: T | MediaBlockSelect<T>;
+        aboutUs?: T | AboutUsBlockSelect<T>;
+        services?: T | ServicesBlockSelect<T>;
+        team?: T | TeamBlockSelect<T>;
+        text?: T | TextBlockSelect<T>;
       };
   meta?:
     | T
@@ -494,6 +565,71 @@ export interface PagesSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutUsBlock_select".
+ */
+export interface AboutUsBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  media?: T;
+  paragraph?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesBlock_select".
+ */
+export interface ServicesBlockSelect<T extends boolean = true> {
+  title?: T;
+  services?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        link?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamBlock_select".
+ */
+export interface TeamBlockSelect<T extends boolean = true> {
+  title?: T;
+  members?:
+    | T
+    | {
+        title?: T;
+        role?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock_select".
+ */
+export interface TextBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  link?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        newTab?: T;
+      };
   id?: T;
   blockName?: T;
 }
