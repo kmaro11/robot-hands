@@ -1,13 +1,12 @@
 import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from 'payload'
 
-import { contactForm as contactFormData } from './contact-form'
 import { contact as contactPageData } from './contact-page'
 import { home } from './home'
 import { image1 } from './image-1'
 import { image2 } from './image-2'
 import { imageHero1 } from './image-hero-1'
 
-const collections: CollectionSlug[] = ['media', 'pages', 'forms', 'form-submissions']
+const collections: CollectionSlug[] = ['media', 'pages']
 const globals: GlobalSlug[] = ['header', 'footer']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
@@ -115,14 +114,6 @@ export const seed = async ({
     }),
   ])
 
-  payload.logger.info(`— Seeding contact form...`)
-
-  const contactForm = await payload.create({
-    collection: 'forms',
-    depth: 0,
-    data: contactFormData,
-  })
-
   payload.logger.info(`— Seeding pages...`)
 
   const [_, contactPage] = await Promise.all([
@@ -134,7 +125,7 @@ export const seed = async ({
     payload.create({
       collection: 'pages',
       depth: 0,
-      data: contactPageData({ contactForm: contactForm }),
+      data: contactPageData(),
     }),
   ])
 
