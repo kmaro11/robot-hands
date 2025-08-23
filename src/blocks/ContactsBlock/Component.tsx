@@ -16,6 +16,9 @@ export const ContactsBlock: React.FC<ContactBlock> = ({
         <h1 className="text-primary mb-14 md:mb-10 md:mb-[76px] text-30 md:text-60 font-bold text-center max-w-[664px] w-full mx-auto">
           {title}
         </h1>
+        <h1 className="text-primary mb-14 md:mb-10 md:mb-[76px] text-30 md:text-60 font-bold text-center max-w-[664px] w-full mx-auto">
+          {title}
+        </h1>
         <div className="flex flex-col md:flex-row justify-between max-w-[800px] w-full gap-x-8 ml-auto mb-20 md:mb-24 gap-y-6">
           <a href={`tel:${phone}`} className="flex items-center md:text-30">
             <div className="bg-green mr-8 md:mr-11 flex items-center justify-center rounded w-10 h-[38px] md:w-16 md:h-[60px]">
