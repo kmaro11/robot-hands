@@ -724,6 +724,7 @@ export interface Header {
  */
 export interface Footer {
   id: number;
+  media?: (number | null) | Media;
   navItems?:
     | {
         link: {
@@ -740,6 +741,25 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  copyright: string;
+  policy?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          button?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  phone: string;
+  email: string;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -773,6 +793,7 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
+  media?: T;
   navItems?:
     | T
     | {
@@ -788,6 +809,24 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  copyright?: T;
+  policy?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              button?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  phone?: T;
+  email?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
