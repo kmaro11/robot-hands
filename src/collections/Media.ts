@@ -1,12 +1,15 @@
 import type { CollectionConfig } from 'payload'
+import type { Media as MediaDoc } from '@/payload-types'
 
 import {
   FixedToolbarFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import { put } from '@vercel/blob'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { promises as fs } from 'fs'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
@@ -39,7 +42,7 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    // Upload to the public/media directory in Next.js making them publicly accessible even outside of Payload
+    // Keep local storage to allow Payload to generate sizes via sharp, then mirror to Vercel Blob
     staticDir: path.resolve(dirname, '../../public/media'),
     adminThumbnail: 'thumbnail',
     focalPoint: true,
@@ -74,6 +77,67 @@ export const Media: CollectionConfig = {
         width: 1200,
         height: 630,
         crop: 'center',
+      },
+    ],
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc, previousDoc: _prev }) => {
+        try {
+          // Skip if already points to Vercel Blob
+          const url: string | undefined = (doc as MediaDoc)?.url ?? undefined
+          if (url && url.includes('vercel-storage.com')) return doc
+
+          const uploadsDir = path.resolve(dirname, '../../public/media')
+
+          // Helper to upload a file by filename if it exists on disk
+          const uploadFile = async (
+            fileName: string | null | undefined,
+          ): Promise<string | undefined> => {
+            if (!fileName) return undefined
+            const filePath = path.join(uploadsDir, fileName)
+            try {
+              const buffer = await fs.readFile(filePath)
+              const blob = await put(fileName, buffer, { access: 'public', addRandomSuffix: false })
+              return blob.url
+            } catch {
+              return undefined
+            }
+          }
+
+          // Upload original
+          const newUrl = await uploadFile((doc as MediaDoc)?.filename ?? undefined)
+          if (newUrl) {
+            ;(doc as MediaDoc).url = newUrl
+          }
+
+          // Upload sizes if present
+          const mediaDoc = doc as MediaDoc
+          const sizeKeys = [
+            'thumbnail',
+            'square',
+            'small',
+            'medium',
+            'large',
+            'xlarge',
+            'og',
+          ] as const
+          for (const key of sizeKeys) {
+            const sizeVal = mediaDoc.sizes?.[key]
+            if (sizeVal?.filename) {
+              const sizeUrl = await uploadFile(sizeVal.filename)
+              if (sizeUrl) {
+                if (!mediaDoc.sizes) mediaDoc.sizes = {}
+                if (!mediaDoc.sizes[key]) mediaDoc.sizes[key] = {}
+                mediaDoc.sizes[key]!.url = sizeUrl
+              }
+            }
+          }
+
+          return doc
+        } catch {
+          return doc
+        }
       },
     ],
   },
