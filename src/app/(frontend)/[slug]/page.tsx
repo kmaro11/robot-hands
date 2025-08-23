@@ -65,7 +65,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { layout } = page
 
   return (
-    <article className="pt-16 pb-24">
+    <div>
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
@@ -73,7 +73,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <RenderBlocks blocks={layout} />
-    </article>
+    </div>
   )
 }
 

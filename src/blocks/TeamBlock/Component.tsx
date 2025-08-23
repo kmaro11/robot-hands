@@ -33,7 +33,7 @@ export const TeamBlock: React.FC<TeamBlockProps> = ({ title, members = [] }) => 
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 xl:gap-x-6">
             {displayedMembers.map((member) => (
               <li key={member.id} className="bg-green-100 rounded-lg pt-[14px] px-4 pb-6">
-                <Media resource={member.media} className="mb-4 rounded-lg" />
+                <Media resource={member.media} className="mb-4 rounded-lg overflow-hidden" />
                 <h3 className="text-white text-25 mb-4">{member.title}</h3>
                 <p className="text-green text-15">{member.role}</p>
               </li>

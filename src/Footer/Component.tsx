@@ -33,10 +33,9 @@ export async function Footer() {
             </Link>
             <div className="flex flex-col md:flex-row gap-x-7 gap-y-6">
               {navItems.map((item: any, index: number) => (
-                <>
+                <React.Fragment key={item?.id ?? `${item?.link?.label ?? 'nav'}-${index}`}>
                   {item.link.type === 'custom' && item.link.url && (
                     <a
-                      key={index}
                       href={item.link.url}
                       className="text-white text-15 md:text-20 hover:underline"
                     >
@@ -45,14 +44,13 @@ export async function Footer() {
                   )}
                   {item.link.type === 'reference' && (
                     <Link
-                      key={index}
                       href={slug(item.link)}
                       className="text-white text-15 md:text-20 hover:underline"
                     >
                       {item.link.label}
                     </Link>
                   )}
-                </>
+                </React.Fragment>
               ))}
               {policySlug && (
                 <Link

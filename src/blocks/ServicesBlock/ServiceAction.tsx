@@ -19,18 +19,18 @@ export const ServiceAction = ({ link, className }: { link: string; className?: s
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g clip-path="url(#clip0_701_3411)">
+          <g clipPath="url(#clip0_701_3411)">
             <path
               d="M14.643 8.18457L1.69531 8.18457"
               stroke="white"
-              stroke-width="0.97108"
-              stroke-miterlimit="10"
+              strokeWidth="0.97108"
+              strokeMiterlimit="10"
             />
             <path
               d="M9.25 3.00509L14.6427 8.18419L9.25 13.3633"
               stroke="white"
-              stroke-width="0.97108"
-              stroke-miterlimit="10"
+              strokeWidth="0.97108"
+              strokeMiterlimit="10"
             />
           </g>
           <defs>
