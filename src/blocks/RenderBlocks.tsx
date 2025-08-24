@@ -10,6 +10,11 @@ import { TextBlock } from '@/blocks/TextBlock/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { TextEditor as TextEditorBlockComponent } from '@/blocks/TextEditor/Component'
 import { ContactsBlock } from '@/blocks/ContactsBlock/Component'
+import { HomeHero } from '@/blocks/HomeHero/Component'
+import { WhyBlock } from '@/blocks/WhyBlock/Component'
+import { Adaptation } from '@/blocks/Adaptation/Component'
+import { ThreeSteps } from '@/blocks/ThreeSteps/Component'
+import { GetToKnow } from '@/blocks/GetToKnow/Component'
 
 const blockComponents = {
   mediaBlock: MediaBlock,
@@ -20,6 +25,11 @@ const blockComponents = {
   form: FormBlock,
   textEditor: TextEditorBlockComponent,
   contact: ContactsBlock,
+  homeHero: HomeHero,
+  whyBlock: WhyBlock,
+  adaptation: Adaptation,
+  threeSteps: ThreeSteps,
+  getToKnow: GetToKnow,
 } as const
 
 export const RenderBlocks: React.FC<{

@@ -11,6 +11,10 @@ import { Text } from '../../blocks/TextBlock/config'
 import { Form } from '../../blocks/Form/config'
 import { TextEditor } from '../../blocks/TextEditor/config'
 import { Contact } from '../../blocks/ContactsBlock/config'
+import { HomeHero } from '../../blocks/HomeHero/config'
+import { WhyBlock } from '../../blocks/WhyBlock/config'
+import { Adaptation } from '../../blocks/Adaptation/config'
+import { ThreeSteps } from '../../blocks/ThreeSteps/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
@@ -74,7 +78,20 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [MediaBlock, AboutUs, Services, Team, Text, Form, TextEditor, Contact],
+              blocks: [
+                MediaBlock,
+                AboutUs,
+                Services,
+                Team,
+                Text,
+                Form,
+                TextEditor,
+                Contact,
+                HomeHero,
+                WhyBlock,
+                Adaptation,
+                ThreeSteps,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,

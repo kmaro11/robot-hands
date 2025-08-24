@@ -147,6 +147,10 @@ export interface Page {
     | FormBlock
     | TextEditorBlock
     | ContactBlock
+    | HomeHeroBlock
+    | WhyBlock
+    | AdaptationBlock
+    | ThreeStepsBlock
   )[];
   meta?: {
     title?: string | null;
@@ -384,6 +388,85 @@ export interface ContactBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeHeroBlock".
+ */
+export interface HomeHeroBlock {
+  title: string;
+  subtitle: string;
+  link?: {
+    label?: string | null;
+    linkType?: ('pages' | 'custom') | null;
+    page?: (number | null) | Page;
+    url?: string | null;
+    newTab?: boolean | null;
+  };
+  media: number | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'homeHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhyBlock".
+ */
+export interface WhyBlock {
+  title: string;
+  cards?:
+    | {
+        title: string;
+        subtitle: string;
+        media: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'whyBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AdaptationBlock".
+ */
+export interface AdaptationBlock {
+  title: string;
+  cards?:
+    | {
+        title: string;
+        subtitle: string;
+        media: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'adaptation';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ThreeStepsBlock".
+ */
+export interface ThreeStepsBlock {
+  title: string;
+  steps?:
+    | {
+        title: string;
+        subtitle: string;
+        id?: string | null;
+      }[]
+    | null;
+  link?: {
+    label?: string | null;
+    linkType?: ('pages' | 'custom') | null;
+    page?: (number | null) | Page;
+    url?: string | null;
+    newTab?: boolean | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'threeSteps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -606,6 +689,10 @@ export interface PagesSelect<T extends boolean = true> {
         form?: T | FormBlockSelect<T>;
         textEditor?: T | TextEditorBlockSelect<T>;
         contact?: T | ContactBlockSelect<T>;
+        homeHero?: T | HomeHeroBlockSelect<T>;
+        whyBlock?: T | WhyBlockSelect<T>;
+        adaptation?: T | AdaptationBlockSelect<T>;
+        threeSteps?: T | ThreeStepsBlockSelect<T>;
       };
   meta?:
     | T
@@ -725,6 +812,85 @@ export interface ContactBlockSelect<T extends boolean = true> {
   addressTitle?: T;
   address?: T;
   media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeHeroBlock_select".
+ */
+export interface HomeHeroBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  link?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        newTab?: T;
+      };
+  media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhyBlock_select".
+ */
+export interface WhyBlockSelect<T extends boolean = true> {
+  title?: T;
+  cards?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AdaptationBlock_select".
+ */
+export interface AdaptationBlockSelect<T extends boolean = true> {
+  title?: T;
+  cards?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        media?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ThreeStepsBlock_select".
+ */
+export interface ThreeStepsBlockSelect<T extends boolean = true> {
+  title?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        id?: T;
+      };
+  link?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        newTab?: T;
+      };
   id?: T;
   blockName?: T;
 }
