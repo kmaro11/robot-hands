@@ -400,7 +400,12 @@ export interface HomeHeroBlock {
     url?: string | null;
     newTab?: boolean | null;
   };
-  media: number | Media;
+  images?:
+    | {
+        media: number | Media;
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'homeHero';
@@ -831,7 +836,12 @@ export interface HomeHeroBlockSelect<T extends boolean = true> {
         url?: T;
         newTab?: T;
       };
-  media?: T;
+  images?:
+    | T
+    | {
+        media?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

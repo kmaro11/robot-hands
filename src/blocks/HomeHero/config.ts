@@ -56,10 +56,17 @@ export const HomeHero: Block = {
       ],
     },
     {
-      name: 'media',
-      type: 'relationship',
-      relationTo: 'media',
-      required: true,
+      name: 'images',
+      type: 'array',
+      fields: [
+        {
+          name: 'media',
+          label: 'Image(first for desktop, second for mobile)',
+          type: 'relationship',
+          relationTo: 'media',
+          required: true,
+        },
+      ],
     },
   ],
 }
