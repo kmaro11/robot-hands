@@ -111,7 +111,7 @@ export const Media: CollectionConfig = {
             const filePath = path.join(uploadsDir, fileName)
             try {
               const buffer = await fs.readFile(filePath)
-              const blob = await put(fileName, buffer, { access: 'public', addRandomSuffix: false })
+              const blob = await put(fileName, buffer, { access: 'public', addRandomSuffix: true })
               return blob.url
             } catch {
               return undefined
