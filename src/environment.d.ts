@@ -7,6 +7,7 @@ declare global {
       NEXT_PUBLIC_SERVER_URL: string
       VERCEL_PROJECT_PRODUCTION_URL: string
       BLOB_PUBLIC_HOST?: string
+      BLOB_READ_WRITE_TOKEN: string
       PREVIEW_SECRET?: string
       CRON_SECRET?: string
     }

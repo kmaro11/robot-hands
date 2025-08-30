@@ -1,9 +1,9 @@
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { Plugin } from 'payload'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 import { Page } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -46,5 +46,19 @@ export const plugins: Plugin[] = [
     generateTitle,
     generateURL,
   }),
-  payloadCloudPlugin(),
+
+  vercelBlobStorage({
+    enabled: true, // optional
+    token: process.env.BLOB_READ_WRITE_TOKEN, // from Vercel
+    clientUploads: true, // important on Vercel (see note below)
+    collections: {
+      media: {
+        // optional: keep your Blob store tidy
+        prefix: 'media/', // files in Blob will live under media/...
+      },
+    },
+    // optional niceties:
+    addRandomSuffix: true, // avoid name collisions
+    // cacheControlMaxAge: 365 * 24 * 60 * 60, // default: 1 year
+  }),
 ]

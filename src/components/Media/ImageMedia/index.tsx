@@ -14,6 +14,13 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 const { breakpoints } = cssVariables
 
 export const ImageMedia: React.FC<MediaProps> = (props) => {
+  type ResourceMinimal = {
+    alt?: string
+    height?: number
+    url?: string
+    width?: number
+    updatedAt?: string | null
+  }
   const {
     alt: altFromProps,
     fill,
@@ -36,11 +43,10 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
       height: fullHeight,
       url,
       width: fullWidth,
-      filename,
-    } = resource as any
+    } = resource as ResourceMinimal
 
-    width = fullWidth!
-    height = fullHeight!
+    width = fullWidth
+    height = fullHeight
     alt = altFromResource || ''
 
     const cacheTag = resource.updatedAt
@@ -57,20 +63,20 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
         .join(', ')
 
+  if (!src || (typeof src === 'string' && src.trim() === '')) return null
+
   return (
-    <picture>
-      <NextImage
-        alt={alt || ''}
-        className={cn(imgClassName)}
-        fill={fill}
-        height={!fill ? height : undefined}
-        priority={priority}
-        quality={100}
-        loading={loading}
-        sizes={sizes}
-        src={src}
-        width={!fill ? width : undefined}
-      />
-    </picture>
+    <NextImage
+      alt={alt || ''}
+      className={cn(imgClassName)}
+      fill={fill}
+      height={!fill ? height : undefined}
+      priority={priority}
+      quality={100}
+      loading={loading}
+      sizes={sizes}
+      src={src}
+      width={!fill ? width : undefined}
+    />
   )
 }
