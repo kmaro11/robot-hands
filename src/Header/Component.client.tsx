@@ -1,12 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import type { Header } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { Nav } from './Nav'
+import { useEffect, useState } from 'react'
 
 interface HeaderClientProps {
   data: Header
