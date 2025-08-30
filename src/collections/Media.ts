@@ -17,10 +17,8 @@ import { authenticated } from '../access/authenticated'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-// Use writable temp dir on Vercel, local folder in dev
-const uploadsDir = process.env.VERCEL
-  ? path.resolve('/tmp/media')
-  : path.resolve(dirname, '../../public/media')
+// Use a writable temp dir in all environments to keep behavior consistent
+const uploadsDir = path.resolve('/tmp/media')
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -88,12 +86,10 @@ export const Media: CollectionConfig = {
   hooks: {
     beforeChange: [
       async () => {
-        // Ensure upload directory exists when running on Vercel
-        if (process.env.VERCEL) {
-          try {
-            await fs.mkdir(uploadsDir, { recursive: true })
-          } catch {}
-        }
+        // Ensure upload directory exists
+        try {
+          await fs.mkdir(uploadsDir, { recursive: true })
+        } catch {}
       },
     ],
     afterChange: [

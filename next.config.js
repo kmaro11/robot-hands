@@ -2,15 +2,39 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 import redirects from './redirects.js'
 
-const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : undefined || process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
+const RAW_ORIGIN =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL ||
+  process.env.__NEXT_PRIVATE_ORIGIN ||
+  'http://localhost:3000'
+
+const NEXT_PUBLIC_SERVER_URL =
+  RAW_ORIGIN.startsWith('http://') || RAW_ORIGIN.startsWith('https://')
+    ? RAW_ORIGIN
+    : `https://${RAW_ORIGIN}`
 
 const BLOB_PUBLIC_HOST = process.env.BLOB_PUBLIC_HOST
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    domains: [
+      (() => {
+        try {
+          const u = new URL(NEXT_PUBLIC_SERVER_URL)
+          return u.hostname
+        } catch {
+          return ''
+        }
+      })(),
+      (() => {
+        try {
+          const u = new URL(BLOB_PUBLIC_HOST || '')
+          return u.hostname
+        } catch {
+          return ''
+        }
+      })(),
+    ].filter(Boolean),
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
         const url = new URL(item)
@@ -18,6 +42,7 @@ const nextConfig = {
         return {
           hostname: url.hostname,
           protocol: url.protocol.replace(':', ''),
+          pathname: '/**',
         }
       }),
       // Allow explicitly provided Blob host, or any Vercel Blob host in dev
@@ -29,6 +54,7 @@ const nextConfig = {
                 {
                   protocol: u.protocol.replace(':', ''),
                   hostname: u.hostname,
+                  pathname: '/**',
                 },
               ]
             } catch {
@@ -38,6 +64,7 @@ const nextConfig = {
                 {
                   protocol: 'https',
                   hostname: host,
+                  pathname: '/**',
                 },
               ]
             }
@@ -45,7 +72,8 @@ const nextConfig = {
         : [
             {
               protocol: 'https',
-              hostname: '**.public.blob.vercel-storage.com',
+              hostname: '*.public.blob.vercel-storage.com',
+              pathname: '/**',
             },
           ]),
     ],
