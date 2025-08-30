@@ -48,17 +48,15 @@ export const plugins: Plugin[] = [
   }),
 
   vercelBlobStorage({
-    enabled: true, // optional
-    token: process.env.BLOB_READ_WRITE_TOKEN, // from Vercel
-    clientUploads: true, // important on Vercel (see note below)
+    enabled: true,
+    token: process.env.BLOB_READ_WRITE_TOKEN,
+    clientUploads: true,
+    addRandomSuffix: true,
     collections: {
       media: {
-        // optional: keep your Blob store tidy
-        prefix: 'media/', // files in Blob will live under media/...
+        prefix: 'media/',
+        disableLocalStorage: true,
       },
     },
-    // optional niceties:
-    addRandomSuffix: true, // avoid name collisions
-    // cacheControlMaxAge: 365 * 24 * 60 * 60, // default: 1 year
   }),
 ]
