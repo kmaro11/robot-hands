@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import type { Media as MediaDoc } from '@/payload-types'
+// import type { Media as MediaDoc } from '@/payload-types'
 
 import {
   FixedToolbarFeature,
@@ -8,14 +8,15 @@ import {
 } from '@payloadcms/richtext-lexical'
 import { put } from '@vercel/blob'
 import path from 'path'
-import { fileURLToPath } from 'url'
+// import { fileURLToPath } from 'url'
 import { promises as fs } from 'fs'
+// import { getServerSideURL } from '../utilities/getURL'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
 
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
+// const filename = fileURLToPath(import.meta.url)
+// const dirname = path.dirname(filename)
 
 // Use a writable temp dir in all environments to keep behavior consistent
 const uploadsDir = path.resolve('/tmp/media')
@@ -84,81 +85,20 @@ export const Media: CollectionConfig = {
     ],
   },
   hooks: {
+    // Simpler flow: on create, upload directly to Vercel Blob and store absolute URL
     beforeChange: [
-      async () => {
-        // Ensure upload directory exists
+      async ({ data, operation, req }) => {
         try {
           await fs.mkdir(uploadsDir, { recursive: true })
         } catch {}
-      },
-    ],
-    afterChange: [
-      async ({ doc, previousDoc: _prev, req }) => {
-        try {
-          // Skip if already points to Vercel Blob
-          const url: string | undefined = (doc as MediaDoc)?.url ?? undefined
-          if (url && url.includes('vercel-storage.com')) return doc
 
-          // Helper to upload a file by filename if it exists on disk
-          const uploadFile = async (
-            fileName: string | null | undefined,
-          ): Promise<string | undefined> => {
-            if (!fileName) return undefined
-            const filePath = path.join(uploadsDir, fileName)
-            try {
-              const buffer = await fs.readFile(filePath)
-              const blob = await put(fileName, buffer, { access: 'public', addRandomSuffix: true })
-              return blob.url
-            } catch {
-              return undefined
-            }
-          }
-
-          // Upload original
-          const newUrl = await uploadFile((doc as MediaDoc)?.filename ?? undefined)
-          if (newUrl) {
-            ;(doc as MediaDoc).url = newUrl
-          }
-
-          // Upload sizes if present
-          const mediaDoc = doc as MediaDoc
-          const sizeKeys = [
-            'thumbnail',
-            'square',
-            'small',
-            'medium',
-            'large',
-            'xlarge',
-            'og',
-          ] as const
-          for (const key of sizeKeys) {
-            const sizeVal = mediaDoc.sizes?.[key]
-            if (sizeVal?.filename) {
-              const sizeUrl = await uploadFile(sizeVal.filename)
-              if (sizeUrl) {
-                if (!mediaDoc.sizes) mediaDoc.sizes = {}
-                if (!mediaDoc.sizes[key]) mediaDoc.sizes[key] = {}
-                mediaDoc.sizes[key]!.url = sizeUrl
-              }
-            }
-          }
-
-          // Persist updated URLs to the database so the website reads absolute Blob URLs
-          try {
-            await req.payload.update({
-              collection: 'media',
-              id: (doc as any).id,
-              data: {
-                url: (doc as MediaDoc).url,
-                sizes: (doc as MediaDoc).sizes,
-              },
-            })
-          } catch {}
-
-          return doc
-        } catch {
-          return doc
+        const files = (req as { files?: { file?: { name: string; data: Buffer } } }).files
+        if (operation === 'create' && files?.file) {
+          const file = files.file as { name: string; data: Buffer }
+          const blob = await put(file.name, file.data, { access: 'public', addRandomSuffix: true })
+          return { ...data, url: blob.url }
         }
+        return data
       },
     ],
   },
