@@ -14,7 +14,11 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
     return cacheTag ? `${url}?${cacheTag}` : url
   }
 
-  // No public env usage to avoid exposing secrets. Fallback to current origin.
+  // Guard against legacy local media routes that will 404 when cloud storage is enabled.
+  // Returning an empty string prevents Next/Image from issuing an invalid optimize request.
+  if (url.startsWith('/api/media/') || url.startsWith('/media/')) {
+    return ''
+  }
 
   // Otherwise, fall back to current origin
   const origin = typeof window !== 'undefined' ? window.location.origin : ''

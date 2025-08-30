@@ -56,10 +56,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   return (
     <header
       className={twMerge(
-        'fixed top-0 left-0 right-0 z-50 px-8 transition-transform duration-300 ease-in-out',
+        'bg-white fixed top-0 left-0 right-0 z-50 px-8 transition-transform duration-300 ease-in-out',
         hideHeader ? '-translate-y-full' : 'translate-y-0',
-        isAtTop ? 'bg-transparent' : 'bg-white',
-        menuOpen ? 'bg-white' : '',
       )}
     >
       <div className="max-w-[1193px] w-full mx-auto flex justify-between items-center py-[14px] h-[60px]">
