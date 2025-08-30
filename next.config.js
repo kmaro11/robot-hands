@@ -22,16 +22,30 @@ const nextConfig = {
       }),
       // Allow explicitly provided Blob host, or any Vercel Blob host in dev
       ...(BLOB_PUBLIC_HOST
-        ? [
-            {
-              protocol: 'https',
-              hostname: BLOB_PUBLIC_HOST,
-            },
-          ]
+        ? (() => {
+            try {
+              const u = new URL(BLOB_PUBLIC_HOST)
+              return [
+                {
+                  protocol: u.protocol.replace(':', ''),
+                  hostname: u.hostname,
+                },
+              ]
+            } catch {
+              // If provided without protocol, assume https
+              const host = BLOB_PUBLIC_HOST.replace(/^https?:\/\//, '')
+              return [
+                {
+                  protocol: 'https',
+                  hostname: host,
+                },
+              ]
+            }
+          })()
         : [
             {
               protocol: 'https',
-              hostname: '*.public.blob.vercel-storage.com',
+              hostname: '**.public.blob.vercel-storage.com',
             },
           ]),
     ],
