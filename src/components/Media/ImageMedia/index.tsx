@@ -21,7 +21,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     width?: number
     updatedAt?: string | null
   }
-  console.log('props', props)
+
   const {
     alt: altFromProps,
     fill,
