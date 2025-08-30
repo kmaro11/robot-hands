@@ -29,6 +29,7 @@ const config = {
         25: ['25px', { lineHeight: '130%' }, { letterSpacing: '1px' }],
         30: ['30px', { lineHeight: '130%' }, { letterSpacing: '1px' }],
         40: ['40px', { lineHeight: '130%' }, { letterSpacing: '1px' }],
+        50: ['50px', { lineHeight: '130%' }, { letterSpacing: '1px' }],
         60: ['60px', { lineHeight: '120%' }, { letterSpacing: '1px' }],
       },
     },
