@@ -97,7 +97,7 @@ export const Media: CollectionConfig = {
       },
     ],
     afterChange: [
-      async ({ doc, previousDoc: _prev }) => {
+      async ({ doc, previousDoc: _prev, req }) => {
         try {
           // Skip if already points to Vercel Blob
           const url: string | undefined = (doc as MediaDoc)?.url ?? undefined
@@ -146,6 +146,18 @@ export const Media: CollectionConfig = {
               }
             }
           }
+
+          // Persist updated URLs to the database so the website reads absolute Blob URLs
+          try {
+            await req.payload.update({
+              collection: 'media',
+              id: (doc as any).id,
+              data: {
+                url: (doc as MediaDoc).url,
+                sizes: (doc as MediaDoc).sizes,
+              },
+            })
+          } catch {}
 
           return doc
         } catch {

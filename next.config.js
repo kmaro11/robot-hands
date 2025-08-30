@@ -20,6 +20,7 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      // Allow explicitly provided Blob host, or any Vercel Blob host in dev
       ...(BLOB_PUBLIC_HOST
         ? [
             {
@@ -27,7 +28,12 @@ const nextConfig = {
               hostname: BLOB_PUBLIC_HOST,
             },
           ]
-        : []),
+        : [
+            {
+              protocol: 'https',
+              hostname: '*.public.blob.vercel-storage.com',
+            },
+          ]),
     ],
   },
   webpack: (webpackConfig) => {
