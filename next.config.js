@@ -15,6 +15,15 @@ const nextConfig = {
   },
   reactStrictMode: true,
   redirects,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'blob.vercel-storage.com',
+      },
+    ],
+    domains: ['localhost'],
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
