@@ -23,7 +23,7 @@ export const GetToKnow: React.FC<{
         linkType={link?.linkType}
         variant="primary"
         size="normal"
-        className="mt-[30px] md:mt-11 font-bold mx-auto w-full max-w-full md:max-w-max"
+        className="font-bold mx-auto w-full max-w-full md:max-w-max"
       >
         {link?.label}
       </Button>
@@ -32,13 +32,13 @@ export const GetToKnow: React.FC<{
 
   return (
     <div className="w-full pb-[135px] md:pb-[157px]">
-      <div className="max-w-[580px] w-full mx-auto mb-12 md:mb-20 px-8">
+      <div className="max-w-[580px] w-full mx-auto  px-8">
         <h1 className="text-primary text-30 md:text-40 font-bold text-center mb-4 md:mb-8">
           {title}
         </h1>
         <p className="text-primary text-15 md:text-20 text-center">{subtitle}</p>
       </div>
-      <div className="overflow-hidden px-8" ref={ref}>
+      <div className="overflow-hidden px-8 pt-12 md:pt-20 pb-[72px] md:pb-20" ref={ref}>
         <div className="flex -ml-6 will-change-transform">
           {cards?.map((card) => (
             <div

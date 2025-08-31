@@ -6,7 +6,7 @@ export const Card: React.FC<{
   media: any
 }> = ({ title, subtitle, media }) => {
   return (
-    <div className="rounded-[10px] relative h-[379px] md:h-[491px] flex flex-col justify-end">
+    <div className="rounded-[10px] relative h-[379px] md:h-[491px] flex flex-col justify-end shadow-[0_4px_15px_rgba(0,0,0,0.25)]">
       <Media
         resource={media}
         imgClassName="absolute inset-0 rounded-[10px] h-full w-full object-cover object-center"
