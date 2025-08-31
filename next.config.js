@@ -23,6 +23,20 @@ const nextConfig = {
       ...(blobHost ? [{ protocol: 'https', hostname: blobHost }] : []),
     ],
   },
+  async rewrites() {
+    if (!blobHost) return []
+
+    return [
+      {
+        source: '/api/media/file/:filename*',
+        destination: `https://${blobHost}/:filename*`,
+      },
+      {
+        source: '/media/:filename*',
+        destination: `https://${blobHost}/:filename*`,
+      },
+    ]
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })

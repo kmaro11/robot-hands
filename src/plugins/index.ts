@@ -53,8 +53,8 @@ export const plugins: Plugin[] = [
     clientUploads: true,
     collections: {
       media: {
-        prefix: 'media/', // optional but keeps files organized
-        disablePayloadAccessControl: true, // <— this is the key
+        prefix: '',
+        disablePayloadAccessControl: true,
       },
     },
   }),
