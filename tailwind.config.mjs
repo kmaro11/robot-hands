@@ -24,6 +24,7 @@ const config = {
         },
       },
       fontSize: {
+        12: ['12px', { lineHeight: '120%' }, { letterSpacing: '0.76px' }],
         15: ['15px', { lineHeight: '150%' }, { letterSpacing: '1px' }],
         20: ['20px', { lineHeight: '100%' }, { letterSpacing: '1px' }],
         25: ['25px', { lineHeight: '130%' }, { letterSpacing: '1px' }],

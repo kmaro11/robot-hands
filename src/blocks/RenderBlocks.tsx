@@ -15,6 +15,7 @@ import { WhyBlock } from '@/blocks/WhyBlock/Component'
 import { Adaptation } from '@/blocks/Adaptation/Component'
 import { ThreeSteps } from '@/blocks/ThreeSteps/Component'
 import { GetToKnow } from '@/blocks/GetToKnow/Component'
+import { RegistrationHome } from './RegistrationHome/Component'
 
 const blockComponents = {
   mediaBlock: MediaBlock,
@@ -30,6 +31,7 @@ const blockComponents = {
   adaptation: Adaptation,
   threeSteps: ThreeSteps,
   getToKnow: GetToKnow,
+  registrationHome: RegistrationHome,
 } as const
 
 export const RenderBlocks: React.FC<{

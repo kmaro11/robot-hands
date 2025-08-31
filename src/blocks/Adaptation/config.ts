@@ -10,6 +10,12 @@ export const Adaptation: Block = {
       required: true,
     },
     {
+      name: 'subtitle',
+      type: 'text',
+      required: true,
+      defaultValue: '',
+    },
+    {
       name: 'cards',
       type: 'array',
       fields: [

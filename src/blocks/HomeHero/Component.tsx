@@ -23,7 +23,7 @@ export const HomeHero: React.FC<HomeHeroBlockProps> = ({ title, subtitle, images
   }
 
   return (
-    <section className="relative overflow-hidden pt-20 md:pt-[88px] h-screen bg-gray">
+    <section className="relative overflow-hidden pt-[145px] md:pt-[157px] h-screen bg-gray">
       {desktopUrl && (
         <div
           className="absolute inset-0 block bg-cover bg-center"

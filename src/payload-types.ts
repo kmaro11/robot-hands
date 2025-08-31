@@ -152,6 +152,7 @@ export interface Page {
     | AdaptationBlock
     | ThreeStepsBlock
     | GetToKnowBlock
+    | RegistrationHomeBlock
   )[];
   meta?: {
     title?: string | null;
@@ -436,6 +437,7 @@ export interface WhyBlock {
  */
 export interface AdaptationBlock {
   title: string;
+  subtitle: string;
   cards?:
     | {
         title: string;
@@ -497,6 +499,17 @@ export interface GetToKnowBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'getToKnow';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegistrationHomeBlock".
+ */
+export interface RegistrationHomeBlock {
+  title: string;
+  subtitle: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'registrationHome';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -727,6 +740,7 @@ export interface PagesSelect<T extends boolean = true> {
         adaptation?: T | AdaptationBlockSelect<T>;
         threeSteps?: T | ThreeStepsBlockSelect<T>;
         getToKnow?: T | GetToKnowBlockSelect<T>;
+        registrationHome?: T | RegistrationHomeBlockSelect<T>;
       };
   meta?:
     | T
@@ -897,6 +911,7 @@ export interface WhyBlockSelect<T extends boolean = true> {
  */
 export interface AdaptationBlockSelect<T extends boolean = true> {
   title?: T;
+  subtitle?: T;
   cards?:
     | T
     | {
@@ -957,6 +972,16 @@ export interface GetToKnowBlockSelect<T extends boolean = true> {
         url?: T;
         newTab?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RegistrationHomeBlock_select".
+ */
+export interface RegistrationHomeBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
   id?: T;
   blockName?: T;
 }

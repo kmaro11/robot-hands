@@ -16,6 +16,7 @@ import { WhyBlock } from '../../blocks/WhyBlock/config'
 import { Adaptation } from '../../blocks/Adaptation/config'
 import { ThreeSteps } from '../../blocks/ThreeSteps/config'
 import { GetToKnow } from '../../blocks/GetToKnow/config'
+import { RegistrationHome } from '../../blocks/RegistrationHome/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
@@ -93,6 +94,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Adaptation,
                 ThreeSteps,
                 GetToKnow,
+                RegistrationHome,
               ],
               required: true,
               admin: {
