@@ -19,7 +19,13 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-export const FormFields = () => {
+export const FormFields = ({
+  fieldsColor,
+  formType = 'register',
+}: {
+  fieldsColor?: string
+  formType?: 'download' | 'register'
+}) => {
   const {
     register,
     handleSubmit,
@@ -36,7 +42,7 @@ export const FormFields = () => {
     const res = await fetch('/api/send-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, formType, website: 'Dobot website form' }),
     })
 
     if (res.ok) {
@@ -48,8 +54,10 @@ export const FormFields = () => {
     setIsSubmitting(false) // enable button again if needed
   }
 
-  const baseInputClass =
-    'border-2 border-transparent bg-gray-300 w-full h-16 px-[26px] py-2 rounded-[5px] focus:outline-none transition text-gray-400 text-15'
+  const baseInputClass = twMerge(
+    'border-2 border-transparent  w-full h-16 px-[26px] py-2 rounded-[5px] focus:outline-none transition text-gray-400 text-15',
+    fieldsColor ? fieldsColor : 'bg-gray-300',
+  )
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-5">
