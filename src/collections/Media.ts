@@ -18,7 +18,6 @@ export const Media: CollectionConfig = {
   },
   upload: {
     mimeTypes: ['image/*'],
-    adminThumbnail: 'thumbnail',
   },
   fields: [
     {
