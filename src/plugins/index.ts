@@ -51,7 +51,9 @@ export const plugins: Plugin[] = [
     enabled: true,
     token: process.env.BLOB_READ_WRITE_TOKEN,
     collections: {
-      media: true,
+      media: {
+        disableLocalStorage: true,
+      },
     },
   }),
 ]
