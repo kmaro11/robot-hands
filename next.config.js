@@ -22,17 +22,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'blob.vercel-storage.com' },
       ...(blobHost ? [{ protocol: 'https', hostname: blobHost }] : []),
     ],
-    domains: ['localhost'],
-  },
-  async rewrites() {
-    const rewrites = []
-    if (blobHost) {
-      rewrites.push(
-        { source: '/api/media/file/:filename*', destination: `https://${blobHost}/:filename*` },
-        { source: '/media/:filename*', destination: `https://${blobHost}/:filename*` },
-      )
-    }
-    return rewrites
   },
 }
 
