@@ -151,6 +151,7 @@ export interface Page {
     | WhyBlock
     | AdaptationBlock
     | ThreeStepsBlock
+    | GetToKnowBlock
   )[];
   meta?: {
     title?: string | null;
@@ -473,6 +474,32 @@ export interface ThreeStepsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GetToKnowBlock".
+ */
+export interface GetToKnowBlock {
+  title: string;
+  subtitle: string;
+  cards?:
+    | {
+        title: string;
+        subtitle: string;
+        media: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  link?: {
+    label?: string | null;
+    linkType?: ('pages' | 'custom') | null;
+    page?: (number | null) | Page;
+    url?: string | null;
+    newTab?: boolean | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'getToKnow';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -699,6 +726,7 @@ export interface PagesSelect<T extends boolean = true> {
         whyBlock?: T | WhyBlockSelect<T>;
         adaptation?: T | AdaptationBlockSelect<T>;
         threeSteps?: T | ThreeStepsBlockSelect<T>;
+        getToKnow?: T | GetToKnowBlockSelect<T>;
       };
   meta?:
     | T
@@ -891,6 +919,33 @@ export interface ThreeStepsBlockSelect<T extends boolean = true> {
     | {
         title?: T;
         subtitle?: T;
+        id?: T;
+      };
+  link?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        page?: T;
+        url?: T;
+        newTab?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GetToKnowBlock_select".
+ */
+export interface GetToKnowBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  cards?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        media?: T;
         id?: T;
       };
   link?:
