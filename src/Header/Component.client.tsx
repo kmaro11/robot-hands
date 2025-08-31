@@ -15,7 +15,6 @@ interface HeaderClientProps {
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [hideHeader, setHideHeader] = useState(false)
-  const [isAtTop, setIsAtTop] = useState(true)
 
   const toggleMenu = (action?: boolean) => {
     if (typeof action === 'boolean') {
@@ -37,7 +36,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY
-      setIsAtTop(currentScrollY <= 60)
 
       if (!menuOpen) {
         if (currentScrollY > lastScrollY && currentScrollY > 60) {
@@ -53,6 +51,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [menuOpen])
+  console.log('data', data)
   return (
     <header
       className={twMerge(
