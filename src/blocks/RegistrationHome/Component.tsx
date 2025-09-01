@@ -13,7 +13,9 @@ export const RegistrationHome: React.FC<RegistrationHomeBlockProps> = ({ title, 
         </div>
       </div>
       <div className="bg-gray-500 w-full py-[50px] px-8 md:px-20 md:pr-[100px]">
-        <FormFields fieldsColor="bg-white" formType="register" />
+        <div className="max-w-[586px]">
+          <FormFields fieldsColor="bg-white" formType="register" />
+        </div>
       </div>
     </div>
   )
