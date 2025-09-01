@@ -20,7 +20,8 @@ export async function Footer() {
       typeof item.reference?.value === 'object' &&
       item.reference.value.slug
     )
-      return item.reference.value.slug
+      return `/${item.reference.value.slug}`
+    return '#'
   }
 
   return (

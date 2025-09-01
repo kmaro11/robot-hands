@@ -17,9 +17,18 @@ export const GetToKnow: React.FC<{
 
   const textButton = (link: any) => {
     if (!link || !link?.label || !link?.linkType) return
+    
+    // Generate the href with proper fallbacks
+    let href = '#'
+    if (link?.linkType === 'custom' && link?.url) {
+      href = link.url
+    } else if (link?.page?.slug) {
+      href = `/${link.page.slug}`
+    }
+    
     return (
       <Button
-        href={link?.linkType === 'custom' ? link?.url : link.page?.slug}
+        href={href}
         linkType={link?.linkType}
         variant="primary"
         size="normal"

@@ -14,7 +14,8 @@ export const Nav = ({ navItems, closeMenu }: HeaderClientProps) => {
       typeof item.reference?.value === 'object' &&
       item.reference.value.slug
     )
-      return item.reference.value.slug
+      return `/${item.reference.value.slug}`
+    return '#'
   }
 
   const simpleButton =
