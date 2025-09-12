@@ -14,5 +14,15 @@ export const Form: Block = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'formType',
+      type: 'radio',
+      options: [
+        { label: 'Download', value: 'download' },
+        { label: 'Register', value: 'register' },
+      ],
+      defaultValue: 'download',
+      required: true,
+    },
   ],
 }

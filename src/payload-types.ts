@@ -346,6 +346,7 @@ export interface TextBlock {
 export interface FormBlock {
   title: string;
   subtitle: string;
+  formType: 'download' | 'register';
   id?: string | null;
   blockName?: string | null;
   blockType: 'form';
@@ -837,6 +838,7 @@ export interface TextBlockSelect<T extends boolean = true> {
 export interface FormBlockSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  formType?: T;
   id?: T;
   blockName?: T;
 }

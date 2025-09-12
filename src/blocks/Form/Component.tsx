@@ -2,7 +2,7 @@ import React from 'react'
 import { FormBlock as FormBlockProps } from '@/payload-types'
 import { FormFields } from './FormFields'
 
-export const FormBlock: React.FC<FormBlockProps> = ({ title, subtitle }) => {
+export const FormBlock: React.FC<FormBlockProps> = ({ title, subtitle, formType }) => {
   return (
     <section className="md:px-8 md:pb-[156px] py-[114px] md:pt-[104px]">
       <div className="max-w-[1193px] w-full mx-auto flex flex-col md:flex-row justify-between gap-x-16">
@@ -13,7 +13,7 @@ export const FormBlock: React.FC<FormBlockProps> = ({ title, subtitle }) => {
           <p className="text-gray-100 text-15 md:text-25 text-center md:text-left"> {subtitle}</p>
         </div>
         <div className="max-w-[586px] w-full px-8 md:px-0">
-          <FormFields />
+          <FormFields formType={formType} />
         </div>
       </div>
     </section>
