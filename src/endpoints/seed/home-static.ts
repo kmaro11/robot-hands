@@ -6,8 +6,8 @@ export const homeStatic: RequiredDataFromCollectionSlug<'pages'> = {
   _status: 'published',
 
   meta: {
-    description: 'Robodam',
-    title: 'Robodam',
+    description: 'Robodam: robotinės rankos',
+    title: 'Robodam: robotinės rankos',
   },
   title: 'Home',
   layout: [],

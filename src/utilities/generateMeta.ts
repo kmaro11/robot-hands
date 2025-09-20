@@ -26,7 +26,9 @@ export const generateMeta = async (args: { doc: Partial<Page> | null }): Promise
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const title = doc?.meta?.title ? doc?.meta?.title + ' | Robodam' : 'Robodam'
+  const title = doc?.meta?.title
+    ? doc?.meta?.title + ' | Robodam: robotinės rankos'
+    : 'Robodam: robotinės rankos'
 
   return {
     description: doc?.meta?.description,

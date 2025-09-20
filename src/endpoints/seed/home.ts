@@ -24,7 +24,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
     meta: {
       description: 'An open-source website built with Payload and Next.js.',
       image: heroImage.id,
-      title: 'Robodam',
+      title: 'Robodam: robotinės rankos',
     },
     title: 'Home',
   }
