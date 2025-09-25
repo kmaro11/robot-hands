@@ -29,7 +29,7 @@ export async function Footer() {
       <div className="max-w-[1256px] mx-auto">
         <div className="flex flex-col">
           <div className="flex flex-col md:flex-row gap-x-10 justify-between md:items-center mb-20 md:mb-[150px]">
-            <Link href="/" className="mb-14 md:mb-0 max-w-[154px]">
+            <Link href="https://robodam.com" className="mb-14 md:mb-0 max-w-[154px]">
               <Media resource={footerData?.media} />
             </Link>
             <div className="flex flex-col md:flex-row gap-x-7 gap-y-6">
@@ -38,6 +38,7 @@ export async function Footer() {
                   {item.link.type === 'custom' && item.link.url && (
                     <a
                       href={item.link.url}
+                      target={item.link.newTab ? '_blank' : '_self'}
                       className="text-white text-15 md:text-20 hover:underline"
                     >
                       {item.link.label}
@@ -46,6 +47,7 @@ export async function Footer() {
                   {item.link.type === 'reference' && (
                     <Link
                       href={slug(item.link)}
+                      target={item.link.newTab ? '_blank' : '_self'}
                       className="text-white text-15 md:text-20 hover:underline"
                     >
                       {item.link.label}

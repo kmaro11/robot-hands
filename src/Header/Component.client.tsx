@@ -60,7 +60,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       )}
     >
       <div className="max-w-[1193px] w-full mx-auto flex justify-between items-center py-[14px] h-[60px]">
-        <Link href="/" className="max-w-[135px] w-full z-50" onClick={() => toggleMenu(false)}>
+        <Link
+          href="https://robodam.com"
+          className="max-w-[135px] w-full z-50"
+          onClick={() => toggleMenu(false)}
+        >
           <Media resource={data.media} />
         </Link>
 

@@ -32,7 +32,7 @@ export const Nav = ({ navItems, closeMenu }: HeaderClientProps) => {
             {item.link.type === 'custom' && item.link.url && (
               <a
                 href={item.link.url}
-                target="_blank"
+                target={item.link.newTab ? '_blank' : '_self'}
                 onClick={closeMenu}
                 className={twMerge(
                   'flex items-center transition-colors duration-300 lg:px-[14px] w-full lg:w-auto flex-shrink-0',
@@ -45,6 +45,7 @@ export const Nav = ({ navItems, closeMenu }: HeaderClientProps) => {
             {item.link.type === 'reference' && (
               <Link
                 href={slug(item.link)}
+                target={item.link.newTab ? '_blank' : '_self'}
                 onClick={closeMenu}
                 className={twMerge(
                   'flex items-center transition-colors duration-300 lg:px-[14px] w-full lg:w-auto flex-shrink-0',
